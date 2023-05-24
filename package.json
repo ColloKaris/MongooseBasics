@@ -1,0 +1,22 @@
+{
+  "name": "mongoosebasics",
+  "version": "1.0.0",
+  "description": "The basics of Mongoose",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ColloKaris/MongooseBasics.git"
+  },
+  "author": "Collins Kariuki",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ColloKaris/MongooseBasics/issues"
+  },
+  "homepage": "https://github.com/ColloKaris/MongooseBasics#readme",
+  "dependencies": {
+    "mongoose": "^7.2.0"
+  }
+}
