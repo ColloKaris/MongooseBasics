@@ -45,26 +45,58 @@ const productSchema = new mongoose.Schema({
   }
 });
 
+//instance method
+productSchema.methods.greet = function(){
+  console.log("HELLO!!! HI!!! HOWDY!!!");
+  console.log(`- from ${this.name}`)
+}
+
+//instance method to toggle the onsale between true and false
+productSchema.methods.toggleOnSale = function() {
+  this.onSale = !this.onSale;
+  return this.save();
+}
+
+//defining another instance method
+productSchema.methods.addCategory = function (newCat) {
+  this.categories.push(newCat);
+  //returns a thenable object which behaves like a promise
+  //and we can await it somewhere else
+  return this.save();
+}
+
 //use the above Schema to create a model
 const Product = mongoose.model("Product", productSchema);
 
+//A method to show that we have access to the instance method
+//when you find a particular product
+const findProduct = async () => {
+  const foundProduct = await Product.findOne({name: 'Bike Helmet'})
+  console.log(foundProduct)
+  await foundProduct.toggleOnSale();
+  console.log(foundProduct)
+  await foundProduct.addCategory('Outdoors')
+  console.log(foundProduct)
+}
+findProduct();
+
 //create a product
-const bike = new Product({
-  name: "Cycling Jersey",
-  price: 28.50,
-  categories: ["Cycling"],
-  size: 'XS'
-});
-bike
-  .save()
-  .then((data) => {
-    console.log("IT WORKED!!");
-    console.log(data);
-  })
-  .catch((err) => {
-    console.log("OH NO ERROR!");
-    console.log(err);
-  });
+// const bike = new Product({
+//   name: "Cycling Jersey",
+//   price: 28.50,
+//   categories: ["Cycling"],
+//   size: 'L'
+// });
+// bike
+//   .save()
+//   .then((data) => {
+//     console.log("IT WORKED!!");
+//     console.log(data);
+//   })
+//   .catch((err) => {
+//     console.log("OH NO ERROR!");
+//     console.log(err);
+//   });
 
 
 // Product.findOneAndUpdate({name: 'Tire Pump'}, {price: -19.99}, {new: true, runValidators: true})
