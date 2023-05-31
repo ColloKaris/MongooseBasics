@@ -65,6 +65,11 @@ productSchema.methods.addCategory = function (newCat) {
   return this.save();
 }
 
+// Define a static method
+productSchema.statics.fireSale = function () {
+  return this.updateMany({}, {onSale: true, price: 0})  
+}
+
 //use the above Schema to create a model
 const Product = mongoose.model("Product", productSchema);
 
@@ -78,7 +83,10 @@ const findProduct = async () => {
   await foundProduct.addCategory('Outdoors')
   console.log(foundProduct)
 }
-findProduct();
+//findProduct();
+
+// Calling the fireSale static method
+Product.fireSale().then(res => console.log(res))
 
 //create a product
 // const bike = new Product({
