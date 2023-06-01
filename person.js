@@ -21,5 +21,16 @@ mongoose.connect("mongodb://127.0.0.1:27017/shopApp")
     return `${this.first} ${this.last}`
   })
 
+//Defining Mongoose Middleware
+personSchema.pre('save', async function() {
+    this.first = 'YO';
+    this.last = 'MAMA'
+    console.log("ABOUT TO SAVE!!!")
+  })
+  personSchema.pre('save', async function() {
+    console.log("JUST SAVED!!!")
+  })
+
+
   //make model
   const Person = mongoose.model('Person', personSchema)
